@@ -35,6 +35,7 @@ def get_manager_rest_service_port():
 
 def get_manager_rest_url():
     # New style environment: URL. Please migrate to this style.
+    # MANAGER_REST_URL is not set by anoyone as of this commit.
     url = os.environ.get(MANAGER_REST_URL_KEY)
     if url is not None:
         return url
