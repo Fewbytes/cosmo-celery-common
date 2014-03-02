@@ -18,7 +18,7 @@ __author__ = 'idanmo'
 import os
 
 from cloudify.constants import LOCAL_IP_KEY, MANAGER_IP_KEY, \
-    MANAGER_REST_PORT_KEY
+    MANAGER_REST_PORT_KEY, MANAGER_REST_URL_KEY
 
 
 def get_local_ip():
@@ -31,6 +31,16 @@ def get_manager_ip():
 
 def get_manager_rest_service_port():
     return int(os.environ[MANAGER_REST_PORT_KEY])
+
+
+def get_manager_rest_url():
+    # New style environment: URL. Please migrate to this style.
+    url = os.environ.get(MANAGER_REST_URL_KEY)
+    if url is not None:
+        return url
+    # Old style environment: ip and port. Please stop using.
+    return 'http://{0}:{1}'.format(
+        get_manager_ip(), get_manager_rest_service_port())
 
 
 def get_cosmo_properties():
